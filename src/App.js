@@ -1,6 +1,7 @@
 import React from "react"
 import Die from "./Die"
 
+
 export default function App() {
     
     //sets dice to an array of 10 random numbers
@@ -11,7 +12,10 @@ export default function App() {
     function getRandomDice(){
         const newArray = []
         for(let i = 0; i < 10; i++){
-            newArray.push(Math.floor(Math.random() * 6 ) + 1)
+            newArray.push({
+                value: Math.floor(Math.random() * 6 ) + 1,
+                isHeld: false
+            })
         }
         return newArray
     }
@@ -22,12 +26,17 @@ export default function App() {
 
     //array of die elements with the value prop 
     //set to the same number as index of dice array
-    const diceElements = dice.map(item => <Die value={item}/>)
+    const diceElements = dice.map(item => (
+        <Die
+        value={item.value}
+        />
+        ))
+
     return (
         <main>
             <div className="grid">
                 {diceElements}
-                <button onClick={rollButton}>Roll</button>
+                <button className="rollDice" onClick={rollButton}>Roll</button>
             </div>
         </main>
     )

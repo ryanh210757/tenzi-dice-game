@@ -530,7 +530,10 @@ function App() {
     function getRandomDice() {
         var newArray = [];
         for (var i = 0; i < 10; i++) {
-            newArray.push(Math.floor(Math.random() * 6) + 1);
+            newArray.push({
+                value: Math.floor(Math.random() * 6) + 1,
+                isHeld: false
+            });
         }
         return newArray;
     }
@@ -544,8 +547,11 @@ function App() {
     //array of die elements with the value prop 
     //set to the same number as index of dice array
     var diceElements = dice.map(function (item) {
-        return _react2.default.createElement(_Die2.default, { value: item });
+        return _react2.default.createElement(_Die2.default, {
+            value: item.value
+        });
     });
+
     return _react2.default.createElement(
         "main",
         null,
@@ -555,7 +561,7 @@ function App() {
             diceElements,
             _react2.default.createElement(
                 "button",
-                { onClick: rollButton },
+                { className: "rollDice", onClick: rollButton },
                 "Roll"
             )
         )
