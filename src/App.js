@@ -14,7 +14,7 @@ export default function App() {
         for(let i = 0; i < 10; i++){
             newArray.push({
                 value: Math.floor(Math.random() * 6 ) + 1,
-                isHeld: false
+                isHeld: true
             })
         }
         return newArray
@@ -29,6 +29,7 @@ export default function App() {
     const diceElements = dice.map(item => (
         <Die
         value={item.value}
+        isHeld={item.isHeld}
         />
         ))
 

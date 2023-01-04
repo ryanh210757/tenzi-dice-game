@@ -532,7 +532,7 @@ function App() {
         for (var i = 0; i < 10; i++) {
             newArray.push({
                 value: Math.floor(Math.random() * 6) + 1,
-                isHeld: false
+                isHeld: true
             });
         }
         return newArray;
@@ -548,7 +548,8 @@ function App() {
     //set to the same number as index of dice array
     var diceElements = dice.map(function (item) {
         return _react2.default.createElement(_Die2.default, {
-            value: item.value
+            value: item.value,
+            isHeld: item.isHeld
         });
     });
 
@@ -633,9 +634,13 @@ var _react2 = _interopRequireDefault(_react);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function Die(props) {
+    var styles = {
+        backgroundColor: props.isHeld ? "#59E391" : "white"
+    };
+
     return _react2.default.createElement(
         "div",
-        { className: "die-style" },
+        { className: "die-style", style: styles },
         _react2.default.createElement(
             "h2",
             null,
