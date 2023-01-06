@@ -25,6 +25,18 @@ export default function App() {
     function rollButton(){{
         setDice(getRandomDice())
     }}
+    
+    //toggles isHeld property
+    function holdDice(id){
+        setDice(prev => {
+            return prev.map(item => {
+                return item.id === id ? {
+                    ...item,
+                    isHeld: !item.isHeld
+                } : item
+            })
+        })
+    }
 
     //array of die elements with the value prop 
     //set to the same number as index of dice array
@@ -33,6 +45,7 @@ export default function App() {
         key={item.id}
         value={item.value}
         isHeld={item.isHeld}
+        holdDice={() => holdDice(item.id)}
         />
         ))
 
