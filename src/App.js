@@ -1,5 +1,6 @@
 import React from "react"
 import Die from "./Die"
+import { nanoid } from "nanoid"
 
 
 export default function App() {
@@ -14,7 +15,8 @@ export default function App() {
         for(let i = 0; i < 10; i++){
             newArray.push({
                 value: Math.floor(Math.random() * 6 ) + 1,
-                isHeld: true
+                isHeld: true,
+                id: nanoid()
             })
         }
         return newArray
@@ -28,6 +30,7 @@ export default function App() {
     //set to the same number as index of dice array
     const diceElements = dice.map(item => (
         <Die
+        key={item.id}
         value={item.value}
         isHeld={item.isHeld}
         />
