@@ -15,7 +15,7 @@ export default function App() {
         for(let i = 0; i < 10; i++){
             newArray.push({
                 value: Math.floor(Math.random() * 6 ) + 1,
-                isHeld: true,
+                isHeld: false,
                 id: nanoid()
             })
         }
@@ -23,7 +23,15 @@ export default function App() {
     }
 
     function rollButton(){{
-        setDice(getRandomDice())
+        setDice(prev => {
+            return prev.map(item => {
+                return item.isHeld ? item : {
+                    value: Math.floor(Math.random() * 6 ) + 1,
+                    isHeld: false,
+                    id: nanoid()
+                }
+            })
+        })
     }}
     
     //toggles isHeld property

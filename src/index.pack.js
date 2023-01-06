@@ -536,7 +536,7 @@ function App() {
         for (var i = 0; i < 10; i++) {
             newArray.push({
                 value: Math.floor(Math.random() * 6) + 1,
-                isHeld: true,
+                isHeld: false,
                 id: (0, _nanoid.nanoid)()
             });
         }
@@ -545,7 +545,15 @@ function App() {
 
     function rollButton() {
         {
-            setDice(getRandomDice());
+            setDice(function (prev) {
+                return prev.map(function (item) {
+                    return item.isHeld ? item : {
+                        value: Math.floor(Math.random() * 6) + 1,
+                        isHeld: false,
+                        id: (0, _nanoid.nanoid)()
+                    };
+                });
+            });
         }
     }
 
