@@ -4,24 +4,28 @@ import { nanoid } from "nanoid"
 
 
 export default function App() {
-    
+
     //sets dice to an array of 10 random numbers
     const [dice, setDice] = React.useState(getRandomDice())
     //determines victory
     const [tenzies, setTenzies] = React.useState(false)
     
+
+    //checks if every item in the array is held and the same value
     React.useEffect(() => {
         const isHeldBoolean = dice.every(item => item.isHeld)
         const referencePoint = dice[0].value
         const winner = dice.every(item => item.value === referencePoint)
 
         if(isHeldBoolean && winner){
-            console.log("You win!")
+            setTenzies(true)
+            console.log("YOU WIN")
         }
     }, [dice])
 
 
     function getRandomDice(){
+
         const newArray = []
         for(let i = 0; i < 10; i++){
             newArray.push({
@@ -34,15 +38,20 @@ export default function App() {
     }
 
     function rollButton(){{
-        setDice(prev => {
-            return prev.map(item => {
-                return item.isHeld ? item : {
-                    value: Math.floor(Math.random() * 6 ) + 1,
-                    isHeld: false,
-                    id: nanoid()
-                }
+        if(!tenzies){
+            setDice(prev => {
+                return prev.map(item => {
+                    return item.isHeld ? item : {
+                        value: Math.floor(Math.random() * 6 ) + 1,
+                        isHeld: false,
+                        id: nanoid()
+                    }
+                })
             })
-        })
+        }else{
+            setTenzies(false)
+            setDice(getRandomDice)
+        }
     }}
     
     //toggles isHeld property
@@ -74,7 +83,11 @@ export default function App() {
             <p className="instructions">Roll until all dice are the same. Click each die to freeze it at its current value between rolls.</p>
             <div className="grid">
                 {diceElements}
-                <button className="rollDice" onClick={rollButton}>Roll</button>
+                <button 
+                className="rollDice" 
+                onClick={rollButton}>
+                    {tenzies ? "New Game" : "Roll"}
+                </button>
             </div>
         </main>
     )

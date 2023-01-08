@@ -538,6 +538,9 @@ function App() {
         tenzies = _React$useState4[0],
         setTenzies = _React$useState4[1];
 
+    //checks if every item in the array is held and the same value
+
+
     _react2.default.useEffect(function () {
         var isHeldBoolean = dice.every(function (item) {
             return item.isHeld;
@@ -548,11 +551,13 @@ function App() {
         });
 
         if (isHeldBoolean && winner) {
-            console.log("You win!");
+            setTenzies(true);
+            console.log("YOU WIN");
         }
     }, [dice]);
 
     function getRandomDice() {
+
         var newArray = [];
         for (var i = 0; i < 10; i++) {
             newArray.push({
@@ -566,15 +571,20 @@ function App() {
 
     function rollButton() {
         {
-            setDice(function (prev) {
-                return prev.map(function (item) {
-                    return item.isHeld ? item : {
-                        value: Math.floor(Math.random() * 6) + 1,
-                        isHeld: false,
-                        id: (0, _nanoid.nanoid)()
-                    };
+            if (!tenzies) {
+                setDice(function (prev) {
+                    return prev.map(function (item) {
+                        return item.isHeld ? item : {
+                            value: Math.floor(Math.random() * 6) + 1,
+                            isHeld: false,
+                            id: (0, _nanoid.nanoid)()
+                        };
+                    });
                 });
-            });
+            } else {
+                setTenzies(false);
+                setDice(getRandomDice);
+            }
         }
     }
 
@@ -621,8 +631,10 @@ function App() {
             diceElements,
             _react2.default.createElement(
                 "button",
-                { className: "rollDice", onClick: rollButton },
-                "Roll"
+                {
+                    className: "rollDice",
+                    onClick: rollButton },
+                tenzies ? "New Game" : "Roll"
             )
         )
     );
