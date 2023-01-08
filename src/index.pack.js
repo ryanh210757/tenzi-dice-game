@@ -530,6 +530,27 @@ function App() {
         _React$useState2 = _slicedToArray(_React$useState, 2),
         dice = _React$useState2[0],
         setDice = _React$useState2[1];
+    //determines victory
+
+
+    var _React$useState3 = _react2.default.useState(false),
+        _React$useState4 = _slicedToArray(_React$useState3, 2),
+        tenzies = _React$useState4[0],
+        setTenzies = _React$useState4[1];
+
+    _react2.default.useEffect(function () {
+        var isHeldBoolean = dice.every(function (item) {
+            return item.isHeld;
+        });
+        var referencePoint = dice[0].value;
+        var winner = dice.every(function (item) {
+            return item.value === referencePoint;
+        });
+
+        if (isHeldBoolean && winner) {
+            console.log("You win!");
+        }
+    }, [dice]);
 
     function getRandomDice() {
         var newArray = [];

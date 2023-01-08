@@ -7,8 +7,19 @@ export default function App() {
     
     //sets dice to an array of 10 random numbers
     const [dice, setDice] = React.useState(getRandomDice())
-
+    //determines victory
+    const [tenzies, setTenzies] = React.useState(false)
     
+    React.useEffect(() => {
+        const isHeldBoolean = dice.every(item => item.isHeld)
+        const referencePoint = dice[0].value
+        const winner = dice.every(item => item.value === referencePoint)
+
+        if(isHeldBoolean && winner){
+            console.log("You win!")
+        }
+    }, [dice])
+
 
     function getRandomDice(){
         const newArray = []
