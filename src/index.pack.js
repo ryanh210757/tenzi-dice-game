@@ -585,6 +585,16 @@ function App() {
         "main",
         null,
         _react2.default.createElement(
+            "h1",
+            { className: "title" },
+            "Tenzies"
+        ),
+        _react2.default.createElement(
+            "p",
+            { className: "instructions" },
+            "Roll until all dice are the same. Click each die to freeze it at its current value between rolls."
+        ),
+        _react2.default.createElement(
             "div",
             { className: "grid" },
             diceElements,
